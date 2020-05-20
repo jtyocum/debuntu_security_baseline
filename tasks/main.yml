@@ -2,4 +2,5 @@
 
 - import_tasks: CIS_16.04_Initial_Setup.yml
 - import_tasks: CIS_16.04_Network_Configuration.yml
+- import_tasks: CIS_D8_Network_Configuration.yml
 - import_tasks: CIS_16.04_Services.yml
