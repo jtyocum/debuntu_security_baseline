@@ -1,30 +1,30 @@
 - name: 2.1.10 Ensure xinetd is not enabled
   apt:
     name: xinetd
-    status: absent
+    state: absent
 
 - name: 2.2.3 Ensure Avahi Server is not enabled
   apt:
     name: avahi-daemon
-    status: absent
+    state: absent
 
 - name: 2.2.14 Ensure SNMP Server is not enabled
   apt:
     name: snmpd
-    status: absent
+    state: absent
 
 - name: 2.2.17 Ensure NIS Server is not enabled
   apt:
     name: nis
-    status: absent
+    state: absent
 
 - name: 2.3.3 Ensure talk client is not installed
   apt:
     name: talk
-    status: absent
+    state: absent
 
 - name: 2.3.4 Ensure telnet client is not installed
   apt:
     name: telnet
-    status: absent
+    state: absent
 
