@@ -1,0 +1,78 @@
+- name: 5.2.2 Ensure SSH Protocol is set to 2
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^Protocol'
+    insertbefore: BOF
+    line: Protocol 2
+
+- name: 5.2.3 Ensure SSH LogLevel is set to INFO
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^LogLevel'
+    insertbefore: BOF
+    line: LogLevel INFO
+
+- name: 5.2.4 Ensure SSH X11 forwarding is disabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^X11Forwarding'
+    insertbefore: BOF
+    line: X11Forwarding no
+
+- name: 5.2.5 Ensure SSH MaxAuthTries is set to 4 or less
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^MaxAuthTries'
+    insertbefore: BOF
+    line: MaxAuthTries 4
+
+- name: 5.2.6 Ensure SSH IgnoreRhosts is enabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^IgnoreRhosts'
+    insertbefore: BOF
+    line: IgnoreRhosts yes
+
+- name: 5.2.7 Ensure SSH HostbasedAuthentication is disabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^HostbasedAuthentication'
+    insertbefore: BOF
+    line: HostbasedAuthentication no
+
+- name: 5.2.9 Ensure SSH PermitEmptyPasswords is disabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitEmptyPasswords'
+    insertbefore: BOF
+    line: PermitEmptyPasswords no
+
+- name: 5.2.10 Ensure SSH PermitUserEnvironment is disabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitUserEnvironment'
+    insertbefore: BOF
+    line: PermitUserEnvironment no
+
+- name: 5.2.12 Ensure SSH Idle Timeout Interval is configured
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^ClientAliveInterval'
+    insertbefore: BOF
+    line: ClientAliveInterval 300
+
+- name: 5.2.12 Ensure SSH Idle Timeout Interval is configured
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^ClientAliveCountMax'
+    insertbefore: BOF
+    line: ClientAliveCountMax 3
+
+- name: 5.2.13 Ensure SSH LoginGraceTime is set to one minute or less
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^LoginGraceTime'
+    insertbefore: BOF
+    line: LoginGraceTime 60
+    
+    

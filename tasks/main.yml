@@ -4,3 +4,4 @@
 - import_tasks: CIS_16.04_Network_Configuration.yml
 - import_tasks: CIS_D8_Network_Configuration.yml
 - import_tasks: CIS_16.04_Services.yml
+- import_tasks: CIS_16.04_Access_Authentication_Authorization.yml
