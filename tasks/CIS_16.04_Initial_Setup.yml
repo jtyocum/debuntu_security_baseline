@@ -76,3 +76,18 @@
     name: apparmor-profiles
     state: present
 
+- name: 1.7.1.2 Ensure local login warning banner is configured properly
+  copy:
+    content: "{{ logon_banner }}"
+    dest: /etc/issue
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 1.7.1.3 Ensure remote login warning banner is configured properly
+  copy:
+    content: "{{ logon_banner }}"
+    dest: /etc/issue.net
+    owner: root
+    group: root
+    mode: 0644

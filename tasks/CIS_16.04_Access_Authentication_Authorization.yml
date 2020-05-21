@@ -74,5 +74,10 @@
     regexp: '^LoginGraceTime'
     insertbefore: BOF
     line: LoginGraceTime 60
-    
-    
+
+- name: 5.2.15 Ensure SSH warning banner is configured
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^Banner'
+    insertbefore: BOF
+    line: Banner /etc/issue.net
