@@ -1,3 +1,10 @@
+- name: 5.2.1 Ensure permissions on /etc/ssh/sshd_config are configured
+  file:
+    path: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0600'
+
 - name: 5.2.2 Ensure SSH Protocol is set to 2
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -81,3 +88,40 @@
     regexp: '^Banner'
     insertbefore: BOF
     line: Banner /etc/issue.net
+
+- name: 5.3.1 Ensure password creation requirements are configured
+  apt:
+    name: libpam-pwquality
+    state: present
+
+- name: 5.3.1 Ensure password creation requirements are configured
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^minlen'
+    line: 'minlen=14'
+
+- name: 5.3.1 Ensure password creation requirements are configured
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^dcredit'
+    line: 'dcredit=-1'
+
+- name: 5.3.1 Ensure password creation requirements are configured
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^ucredit'
+    line: 'ucredit=-1'
+
+- name: 5.3.1 Ensure password creation requirements are configured
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^ocredit'
+    line: 'ocredit=-1'
+
+- name: 5.3.1 Ensure password creation requirements are configured
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^lcredit'
+    line: 'lcredit=-1'
+
+
