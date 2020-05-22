@@ -1,0 +1,143 @@
+- name: 4.1 Configure System Accounting
+  apt:
+    name: auditd
+    state: present
+
+- name: 4.1.4 Ensure events that modify date and time information are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.4"
+    block: |
+      -a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change
+      -a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change
+      -a always,exit -F arch=b64 -S clock_settime -k time-change
+      -a always,exit -F arch=b32 -S clock_settime -k time-change
+      -w /etc/localtime -p wa -k time-change
+
+- name: 4.1.5 Ensure events that modify user/group information are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.5"
+    block: |
+      -w /etc/group -p wa -k identity
+      -w /etc/passwd -p wa -k identity
+      -w /etc/gshadow -p wa -k identity
+      -w /etc/shadow -p wa -k identity
+      -w /etc/security/opasswd -p wa -k identity
+
+- name: 4.1.6 Ensure events that modify the system's network environment are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.6"
+    block: |
+      -a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale
+      -a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale
+      -w /etc/issue -p wa -k system-locale
+      -w /etc/issue.net -p wa -k system-locale
+      -w /etc/hosts -p wa -k system-locale
+      -w /etc/network -p wa -k system-locale
+      -w /etc/networks -p wa -k system-locale
+
+- name: 4.1.7 Ensure events that modify the system's Mandatory Access Controls are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.7"
+    block: |
+      -w /etc/apparmor/ -p wa -k MAC-policy
+      -w /etc/apparmor.d/ -p wa -k MAC-policy
+
+- name: 4.1.8 Ensure login and logout events are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.8"
+    block: |
+      -w /var/log/faillog -p wa -k logins
+      -w /var/log/lastlog -p wa -k logins
+      -w /var/log/tallylog -p wa -k logins
+
+- name: 4.1.9 Ensure session initiation information is collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.9"
+    block: |
+      -w /var/run/utmp -p wa -k session
+      -w /var/log/wtmp -p wa -k logins
+      -w /var/log/btmp -p wa -k logins
+
+- name: 4.1.10 Ensure discretionary access control permission modification events are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.10"
+    block: |
+      -a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
+      -a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod
+      -a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod
+      -a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod
+      -a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
+      -a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
+
+- name: 4.1.11 Ensure unsuccessful unauthorized file access attempts are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.11"
+    block: |
+      -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
+      -a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access
+      -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
+      -a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
+
+- name: 4.1.13 Ensure successful file system mounts are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.13"
+    block: |
+      -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts
+      -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts
+
+- name: 4.1.14 Ensure file deletion events by users are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.14"
+    block: |
+      -a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+      -a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
+
+- name: 4.1.15 Ensure changes to system administration scope (sudoers) is collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.15"
+    block: |
+      -w /etc/sudoers -p wa -k scope
+      -w /etc/sudoers.d -p wa -k scope
+
+- name: 4.1.16 Ensure system administrator actions (sudolog) are collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.16"
+    block: |
+      -w /var/log/sudo.log -p wa -k actions
+
+- name: 4.1.17 Ensure kernel module loading and unloading is collected
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.17"
+    block: |
+      -w /sbin/insmod -p x -k modules
+      -w /sbin/rmmod -p x -k modules
+      -w /sbin/modprobe -p x -k modules
+      -a always,exit arch=b64 -S init_module -S delete_module -k modules
+
+

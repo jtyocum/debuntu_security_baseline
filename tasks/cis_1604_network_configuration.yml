@@ -4,6 +4,12 @@
     line: 'net.ipv4.ip_forward = 0'
     create: yes
 
+- name: 3.1.1 Ensure IP forwarding is disabled (IPv6 / D8 Benchmark)
+  lineinfile:
+    path: /etc/sysctl.d/CIS.conf
+    line: 'net.ipv6.conf.all.forwarding = 0'
+    create: yes
+
 - name: 3.1.2 Ensure packet redirect sending is disabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
@@ -28,6 +34,18 @@
     line: 'net.ipv4.conf.default.accept_source_route = 0'
     create: yes
 
+- name: 3.2.1 Ensure source routed packets are not accepted (IPv6 / D8 Benchmark)
+  lineinfile:
+    path: /etc/sysctl.d/CIS.conf
+    line: 'net.ipv6.conf.all.accept_source_route = 0'
+    create: yes
+ 
+- name: 3.2.1 Ensure source routed packets are not accepted (IPv6 / B8 Benchmark)
+  lineinfile:
+    path: /etc/sysctl.d/CIS.conf
+    line: 'net.ipv6.conf.default.accept_source_route = 0'
+    create: yes
+    
 - name: 3.2.2 Ensure ICMP redirects are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf

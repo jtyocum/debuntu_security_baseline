@@ -1,7 +1,7 @@
 ---
 
-- import_tasks: CIS_16.04_Initial_Setup.yml
-- import_tasks: CIS_16.04_Network_Configuration.yml
-- import_tasks: CIS_D8_Network_Configuration.yml
-- import_tasks: CIS_16.04_Services.yml
-- import_tasks: CIS_16.04_Access_Authentication_Authorization.yml
+- import_tasks: cis_1604_initial_setup.yml
+- import_tasks: cis_1604_services.yml
+- import_tasks: cis_1604_network_configuration.yml
+- import_tasks: cis_1604_logging_auditing.yml
+- import_tasks: cis_1604_access_authentication_authorization.yml
