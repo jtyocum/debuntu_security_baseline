@@ -76,6 +76,14 @@
     name: apparmor-profiles
     state: present
 
+- name: 1.6.3 Ensure SELinux or Apparmor are installed
+  file:
+    path: /etc/default/grub.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: 1.6.3 Ensure SELinux or AppArmor are installed
   copy:
     content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"'
