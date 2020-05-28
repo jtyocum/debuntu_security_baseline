@@ -14,5 +14,5 @@
     create: yes
     marker: '# {mark} SSH2ROOT'
     block: |
-    Match Host {{ ssh_root_host }}
-            PermitRootLogin without-password
+      Match Address {{ ssh_root_host }}
+        PermitRootLogin without-password
