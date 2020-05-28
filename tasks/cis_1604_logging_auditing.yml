@@ -3,6 +3,18 @@
     name: auditd
     state: present
 
+- name: 4.1.3 Ensure auditing for processes that start prior to auditd is enabled
+  copy:
+    content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT audit=1"'
+    dest: /etc/default/grub.d/audit.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 4.1.3 Ensure auditing for processes that start prior to auditd is enabled
+  command:
+    cmd: /usr/sbin/update-grub
+
 - name: 4.1.4 Ensure events that modify date and time information are collected
   blockinfile:
     path: /etc/audit/audit.rules
