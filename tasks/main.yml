@@ -8,3 +8,4 @@
 - import_tasks: ufw.yml
 - import_tasks: unattended-upgrades.yml
 - import_tasks: kspp_recommend.yml
+- import_tasks: sshd.yml

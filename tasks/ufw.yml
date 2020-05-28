@@ -5,12 +5,18 @@
     name: ufw
     state: present
 
-- name: Allow SSH
+- name: Allow SSH (UFW)
   ufw:
     rule: allow
     port: ssh
 
-- name: Set Default Deny Policy
+- name: Set Default Deny Policy (UFW)
   ufw:
     state: enabled
     policy: deny
+
+- name: Disable sysctl settings (UFW)
+  lineinfile:
+    path: /etc/default/ufw
+    regexp: '^IPT_SYSCTL'
+    line: '#IPT_SYSCTL'

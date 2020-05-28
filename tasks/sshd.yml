@@ -1,0 +1,8 @@
+---
+
+- name: Disable Debian OpenSSH version banner
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^DebianBanner'
+    insertbefore: BOF
+    line: DebianBanner no
