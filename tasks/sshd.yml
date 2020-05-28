@@ -6,3 +6,13 @@
     regexp: '^DebianBanner'
     insertbefore: BOF
     line: DebianBanner no
+
+- name: Allow SSH as root from specific hosts
+  when: ssh_root_host is defined
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    create: yes
+    marker: '# {mark} SSH2ROOT'
+    block: |
+    Match Host {{ ssh_root_host }}
+            PermitRootLogin without-password

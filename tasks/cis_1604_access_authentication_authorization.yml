@@ -47,6 +47,13 @@
     insertbefore: BOF
     line: HostbasedAuthentication no
 
+- name: 5.2.8 Ensure SSH root login is disabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    insertbefore: BOF
+    line: PermitRootLogin no
+
 - name: 5.2.9 Ensure SSH PermitEmptyPasswords is disabled
   lineinfile:
     path: /etc/ssh/sshd_config
