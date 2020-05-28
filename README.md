@@ -22,8 +22,18 @@ logon banner, and SSH groups.
 
 * logon_banner: Defines the banner to be displayed during local and network logons.
 * ssh_allow_groups: A comma separated list of groups allowed to login via SSH.
+* ssh_root_host: Host (IP or subnet) permitted to login as root using an SSH key.
 
 ## Post Role Reboot
 
 After applying this baseline, the system must be rebooted. Several of the settings
 that are applied, only take effect after reboot.
+
+## References
+
+This baseline was built using recommendations from the following sources:
+
+* https://www.cisecurity.org/benchmark/ubuntu_linux/
+* https://www.cisecurity.org/benchmark/debian_linux/
+* https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project/Recommended_Settings
+* https://help.ubuntu.com/community/Security
