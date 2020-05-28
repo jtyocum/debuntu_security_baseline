@@ -76,6 +76,18 @@
     name: apparmor-profiles
     state: present
 
+- name: 1.6.3 Ensure SELinux or AppArmor are installed
+  copy:
+    content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"'
+    dest: /etc/default/grub.d/apparmor.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 1.6.3 Ensure SELinux or AppArmor are installed
+  command:
+    cmd: /usr/sbin/update-grub
+
 - name: 1.7.1.2 Ensure local login warning banner is configured properly
   copy:
     content: "{{ logon_banner }}"
@@ -88,6 +100,27 @@
   copy:
     content: "{{ logon_banner }}"
     dest: /etc/issue.net
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 1.7.1.4 Ensure permissions on /etc/motd are configured
+  file:
+    path: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 1.7.1.5 Ensure permissions on /etc/issue are configured
+  file:
+    path: /etc/issue
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 1.7.1.6 Ensure permissions on /etc/issue.net are configured
+  file:
+    path: /etc/issue.net
     owner: root
     group: root
     mode: 0644

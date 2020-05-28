@@ -5,3 +5,6 @@
 - import_tasks: cis_1604_network_configuration.yml
 - import_tasks: cis_1604_logging_auditing.yml
 - import_tasks: cis_1604_access_authentication_authorization.yml
+- import_tasks: ufw.yml
+- import_tasks: unattended-upgrades.yml
+- import_tasks: kspp_recommend.yml

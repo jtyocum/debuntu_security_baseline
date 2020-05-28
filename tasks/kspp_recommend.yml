@@ -1,0 +1,63 @@
+---
+
+- name: Enable kernel.yama.ptrace_scope (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'kernel.yama.ptrace_scope = 1'
+    create: yes
+
+- name: Enable kernel.kptr_restrict (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'kernel.kptr_restrict = 1'
+    create: yes
+
+- name: Enable kernel.dmesg_restrict (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'kernel.dmesg_restrict = 1'
+    create: yes
+    
+- name: Enable kernel.kexec_load_disabled (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'kernel.kexec_load_disabled = 1'
+    create: yes
+
+- name: Disable unprivileged eBPF (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'kernel.unprivileged_bpf_access = 1'
+    create: yes
+
+- name: Enble BPF JIT harndening (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'net.core.bpf_jit_harden = 2'
+    create: yes
+
+- name: Block non-uid-0 profiling (KSPP)
+  lineinfile:
+    path: /etc/sysctl.d/kspp_recommend.conf
+    line: 'kernel.perf_event_paranoid = 3'
+    create: yes
+
+- name: slub/slab allocator (KSPP)
+  copy:
+    content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT slub_debug=P slab_nomerge"'
+    dest: /etc/default/grub.d/kspp_slab.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable vsyscall (KSPP)
+  copy:
+    content: 'GRUB_CMDLINE_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT vsyscall=none"'
+    dest: /etc/default/grub.d/kspp_vsyscall.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Update GRUB configuration
+  command:
+    cmd: /usr/sbin/update-grub

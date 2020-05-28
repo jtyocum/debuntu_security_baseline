@@ -3,9 +3,34 @@
     name: xinetd
     state: absent
 
+- name: 2.2.1.1 Ensure time synchronization is in use
+  apt:
+    name: chrony
+    state: present
+    
 - name: 2.2.3 Ensure Avahi Server is not enabled
   apt:
     name: avahi-daemon
+    state: absent
+
+- name: 2.2.5 Ensure DHCP Server is not enabled
+  apt:
+    name: isc-dhcp-server
+    state: absent
+
+- name: 2.2.6 Ensure LDAP server is not enabled
+  apt:
+    name: slapd
+    state: absent
+
+- name: 2.2.8 Ensure DNS Server is not enabled
+  apt:
+    name: bind9
+    state: absent
+
+- name: 2.2.13 Ensure HTTP Proxy Server is not enabled
+  apt:
+    name: squid3
     state: absent
 
 - name: 2.2.14 Ensure SNMP Server is not enabled

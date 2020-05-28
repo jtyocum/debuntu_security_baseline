@@ -141,6 +141,20 @@
     name: tcpd
     state: present
 
+- name: 3.4.4 Ensure permissions on /etc/hosts.allow are configured
+  file:
+    path: /etc/hosts.allow
+    owner: root
+    group: root
+    mode: 0644
+
+- name: 3.4.5 Ensure permissions on /etc/hosts.deny are 644
+  file:
+    path: /etc/hosts.deny
+    owner: root
+    group: root
+    mode: 0644
+
 - name: 3.5.1 Ensure DCCP is disabled
   lineinfile:
     path: /etc/modprobe.d/CIS.conf
