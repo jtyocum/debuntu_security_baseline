@@ -152,6 +152,14 @@
       -w /sbin/modprobe -p x -k modules
       -a always,exit -F arch=b64 -S init_module -S delete_module -k modules
 
+- name: 4.1.18 Ensure the audit configuration is immutable
+  blockinfile:
+    path: /etc/audit/audit.rules
+    create: yes
+    marker: "# {mark} 4.1.18"
+    block: |
+      -e 2
+
 - name: 4.2.3 Ensure rsyslog or syslog-ng is installed
   apt:
     name: rsyslog
