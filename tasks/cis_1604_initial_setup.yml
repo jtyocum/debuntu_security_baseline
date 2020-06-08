@@ -118,6 +118,7 @@
 - name: 1.7.1.4 Ensure permissions on /etc/motd are configured
   file:
     path: /etc/motd
+    state: touch
     owner: root
     group: root
     mode: 0644
