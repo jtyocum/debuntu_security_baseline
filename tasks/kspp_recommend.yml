@@ -27,7 +27,7 @@
 - name: Disable unprivileged eBPF (KSPP)
   lineinfile:
     path: /etc/sysctl.d/kspp_recommend.conf
-    line: 'kernel.unprivileged_bpf_access = 1'
+    line: 'kernel.unprivileged_bpf_disabled = 1'
     create: yes
 
 - name: Enble BPF JIT harndening (KSPP)
