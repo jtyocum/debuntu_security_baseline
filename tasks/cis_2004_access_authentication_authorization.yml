@@ -197,5 +197,3 @@
     regexp: '^auth.*required.*pam_wheel'
     insertafter: '^auth.*sufficient.*pam_rootok'
     line: auth required pam_wheel.so use_uid
-
-

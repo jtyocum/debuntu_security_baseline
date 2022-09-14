@@ -5,8 +5,8 @@
 This Ansible role applies a security baseline to Debian and Ubuntu systems. The
 baseline consists of controls from:
 
-* CIS Ubuntu 16.04 Benchmark
-* CIS Debian 8 Benchmark
+* CIS Ubuntu 20.04 Benchmark
+* CIS Debian 10 Benchmark
 * Kernel Self Protection Project Recommendations
 * General recommendations, such as enabling UFW and automatic security updates
 
