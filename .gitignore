@@ -1,6 +1,5 @@
-
-# Created by https://www.gitignore.io/api/emacs,ansible
-# Edit at https://www.gitignore.io/?templates=emacs,ansible
+# Created by https://www.toptal.com/developers/gitignore/api/vim,emacs,visualstudiocode,ansible
+# Edit at https://www.toptal.com/developers/gitignore?templates=vim,emacs,visualstudiocode,ansible
 
 ### Ansible ###
 *.retry
@@ -56,4 +55,49 @@ flycheck_*.el
 /network-security.data
 
 
-# End of https://www.gitignore.io/api/emacs,ansible
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# Support for Project snippet scope
+.vscode/*.code-snippets
+
+# Ignore code-workspaces
+*.code-workspace
+
+# End of https://www.toptal.com/developers/gitignore/api/vim,emacs,visualstudiocode,ansible

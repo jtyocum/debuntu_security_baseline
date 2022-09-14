@@ -28,55 +28,43 @@
     line: install hfsplus /bin/true
     create: yes
 
-- name: 1.1.1.6 Ensure mounting of squashfs filesystems is disabled
-  lineinfile:
-    path: /etc/modprobe.d/CIS.conf
-    line: install squashfs /bin/true
-    create: yes
-
-- name: 1.1.1.7 Ensure mounting of udf filesystems is disabled
+- name: 1.1.1.6 Ensure mounting of udf filesystems is disabled
   lineinfile:
     path: /etc/modprobe.d/CIS.conf
     line: install udf /bin/true
     create: yes
 
-- name: 1.1.1.8 Ensure mounting of FAT filesystems is disabled
-  lineinfile:
-    path: /etc/modprobe.d/CIS.conf
-    line: install vfat /bin/true
-    create: yes
-
-- name: 1.4.1 Ensure permissions on bootloader config are configured
+- name: 1.5.2 Ensure permissions on bootloader config are configured
   file:
     path: /boot/grub/grub.cfg
     owner: root
     group: root
     mode: 0600
 
-- name: 1.5.1 Ensure core dumps are restricted
-  lineinfile:
-    path: /etc/security/limits.d/CIS.conf
-    line: '* hard core 0'
-    create: yes
-
-- name: 1.5.1 Ensure core dumps are restricted
-  lineinfile:
-    path: /etc/sysctl.d/CIS.conf
-    line: 'fs.suid_dumpable = 0'
-    create: yes
-
-- name: 1.5.3 Ensure address space layout randomization (ASLR) is enabled
+- name: 1.6.2 Ensure address space layout randomization (ASLR) is enabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'kernel.randomize_va_space = 2'
     create: yes
 
-- name: 1.6.3 Ensure SELinux or AppArmor are installed
+- name: 1.5.4 Ensure core dumps are restricted
+  lineinfile:
+    path: /etc/security/limits.d/CIS.conf
+    line: '* hard core 0'
+    create: yes
+
+- name: 1.6.4 Ensure core dumps are restricted
+  lineinfile:
+    path: /etc/sysctl.d/CIS.conf
+    line: 'fs.suid_dumpable = 0'
+    create: yes
+
+- name: 1.7.1.1 Ensure AppArmor is installed
   apt:
     name: apparmor-profiles
     state: present
 
-- name: 1.6.3 Ensure SELinux or Apparmor are installed
+- name: 1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration
   file:
     path: /etc/default/grub.d
     state: directory
@@ -84,10 +72,7 @@
     group: root
     mode: 0755
 
-- name: 1.6.3 Ensure SELinux or AppArmor are installed
-  when:
-    - ansible_facts['distribution'] == "Debian"
-    - ansible_facts['distribution_major_version'] is version("10", "lt")
+- name: 1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration
   copy:
     content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT apparmor=1 security=apparmor"'
     dest: /etc/default/grub.d/apparmor.cfg
@@ -95,11 +80,11 @@
     group: root
     mode: 0644
 
-- name: 1.6.3 Ensure SELinux or AppArmor are installed
+- name: 1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration
   command:
     cmd: /usr/sbin/update-grub
 
-- name: 1.7.1.2 Ensure local login warning banner is configured properly
+- name: 1.8.1.2 Ensure local login warning banner is configured properly
   copy:
     content: "{{ logon_banner }}"
     dest: /etc/issue
@@ -107,7 +92,7 @@
     group: root
     mode: 0644
 
-- name: 1.7.1.3 Ensure remote login warning banner is configured properly
+- name: 1.8.1.3 Ensure remote login warning banner is configured properly
   copy:
     content: "{{ logon_banner }}"
     dest: /etc/issue.net
@@ -115,7 +100,7 @@
     group: root
     mode: 0644
 
-- name: 1.7.1.4 Ensure permissions on /etc/motd are configured
+- name: 1.8.1.4 Ensure permissions on /etc/motd are configured
   file:
     path: /etc/motd
     state: touch
@@ -123,14 +108,14 @@
     group: root
     mode: 0644
 
-- name: 1.7.1.5 Ensure permissions on /etc/issue are configured
+- name: 1.8.1.5 Ensure permissions on /etc/issue are configured
   file:
     path: /etc/issue
     owner: root
     group: root
     mode: 0644
 
-- name: 1.7.1.6 Ensure permissions on /etc/issue.net are configured
+- name: 1.8.1.6 Ensure permissions on /etc/issue.net are configured
   file:
     path: /etc/issue.net
     owner: root

@@ -1,9 +1,14 @@
-- name: 4.1 Configure System Accounting
+- name: 4.1.1.1 Ensure auditd is installed
   apt:
     name: auditd
     state: present
 
-- name: 4.1.3 Ensure auditing for processes that start prior to auditd is enabled
+- name: 4.1.1.2 Ensure auditd service is enabled
+  systemd:
+    name: auditd
+    state: enabled
+
+- name: 4.1.1.3 Ensure auditing for processes that start prior to auditd is enabled
   copy:
     content: 'GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT audit=1"'
     dest: /etc/default/grub.d/audit.cfg
@@ -11,11 +16,11 @@
     group: root
     mode: 0644
 
-- name: 4.1.3 Ensure auditing for processes that start prior to auditd is enabled
+- name: 4.1.1.3 Ensure auditing for processes that start prior to auditd is enabled
   command:
     cmd: /usr/sbin/update-grub
 
-- name: 4.1.4 Ensure events that modify date and time information are collected
+- name: 4.1.3 Ensure events that modify date and time information are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -27,7 +32,7 @@
       -a always,exit -F arch=b32 -S clock_settime -k time-change
       -w /etc/localtime -p wa -k time-change
 
-- name: 4.1.5 Ensure events that modify user/group information are collected
+- name: 4.1.4 Ensure events that modify user/group information are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -39,7 +44,7 @@
       -w /etc/shadow -p wa -k identity
       -w /etc/security/opasswd -p wa -k identity
 
-- name: 4.1.6 Ensure events that modify the system's network environment are collected
+- name: 4.1.5 Ensure events that modify the system's network environment are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -53,7 +58,7 @@
       -w /etc/network -p wa -k system-locale
       -w /etc/networks -p wa -k system-locale
 
-- name: 4.1.7 Ensure events that modify the system's Mandatory Access Controls are collected
+- name: 4.1.6 Ensure events that modify the system's Mandatory Access Controls are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -62,7 +67,7 @@
       -w /etc/apparmor/ -p wa -k MAC-policy
       -w /etc/apparmor.d/ -p wa -k MAC-policy
 
-- name: 4.1.8 Ensure login and logout events are collected
+- name: 4.1.7 Ensure login and logout events are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -72,7 +77,7 @@
       -w /var/log/lastlog -p wa -k logins
       -w /var/log/tallylog -p wa -k logins
 
-- name: 4.1.9 Ensure session initiation information is collected
+- name: 4.1.8 Ensure session initiation information is collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -82,7 +87,7 @@
       -w /var/log/wtmp -p wa -k logins
       -w /var/log/btmp -p wa -k logins
 
-- name: 4.1.10 Ensure discretionary access control permission modification events are collected
+- name: 4.1.9 Ensure discretionary access control permission modification events are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -95,7 +100,7 @@
       -a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
       -a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod
 
-- name: 4.1.11 Ensure unsuccessful unauthorized file access attempts are collected
+- name: 4.1.10 Ensure unsuccessful unauthorized file access attempts are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -106,7 +111,7 @@
       -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
       -a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access
 
-- name: 4.1.13 Ensure successful file system mounts are collected
+- name: 4.1.12 Ensure successful file system mounts are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -115,7 +120,7 @@
       -a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts
       -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts
 
-- name: 4.1.14 Ensure file deletion events by users are collected
+- name: 4.1.13 Ensure file deletion events by users are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -124,7 +129,7 @@
       -a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
       -a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete
 
-- name: 4.1.15 Ensure changes to system administration scope (sudoers) is collected
+- name: 4.1.14 Ensure changes to system administration scope (sudoers) is collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -133,7 +138,7 @@
       -w /etc/sudoers -p wa -k scope
       -w /etc/sudoers.d/ -p wa -k scope
 
-- name: 4.1.16 Ensure system administrator actions (sudolog) are collected
+- name: 4.1.15 Ensure system administrator actions (sudolog) are collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -141,7 +146,7 @@
     block: |
       -w /var/log/sudo.log -p wa -k actions
 
-- name: 4.1.17 Ensure kernel module loading and unloading is collected
+- name: 4.1.16 Ensure kernel module loading and unloading is collected
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -152,7 +157,7 @@
       -w /sbin/modprobe -p x -k modules
       -a always,exit -F arch=b64 -S init_module -S delete_module -k modules
 
-- name: 4.1.18 Ensure the audit configuration is immutable
+- name: 4.1.17 Ensure the audit configuration is immutable
   blockinfile:
     path: /etc/audit/rules.d/cis.rules
     create: yes
@@ -164,7 +169,7 @@
   command:
     cmd: /sbin/augenrules
     
-- name: 4.2.3 Ensure rsyslog or syslog-ng is installed
+- name: 4.2.1.1 Ensure rsyslog is installed
   apt:
     name: rsyslog
     state: present

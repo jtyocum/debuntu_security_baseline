@@ -1,76 +1,76 @@
-- name: 3.1.1 Ensure IP forwarding is disabled
-  lineinfile:
-    path: /etc/sysctl.d/CIS.conf
-    line: 'net.ipv4.ip_forward = 0'
-    create: yes
-
-- name: 3.1.1 Ensure IP forwarding is disabled (IPv6 / D8 Benchmark)
-  lineinfile:
-    path: /etc/sysctl.d/CIS.conf
-    line: 'net.ipv6.conf.all.forwarding = 0'
-    create: yes
-
-- name: 3.1.2 Ensure packet redirect sending is disabled
+- name: 3.2.1 Ensure packet redirect sending is disabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.all.send_redirects = 0'
     create: yes
 
-- name: 3.1.2 Ensure packet redirect sending is disabled
+- name: 3.2.1 Ensure packet redirect sending is disabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.default.send_redirects = 0'
     create: yes
 
-- name: 3.2.1 Ensure source routed packets are not accepted
+- name: 3.2.2 Ensure IP forwarding is disabled
+  lineinfile:
+    path: /etc/sysctl.d/CIS.conf
+    line: 'net.ipv4.ip_forward = 0'
+    create: yes
+
+- name: 3.2.2 Ensure IP forwarding is disabled (IPv6 / D8 Benchmark)
+  lineinfile:
+    path: /etc/sysctl.d/CIS.conf
+    line: 'net.ipv6.conf.all.forwarding = 0'
+    create: yes
+
+- name: 3.3.1 Ensure source routed packets are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.all.accept_source_route = 0'
     create: yes
 
-- name: 3.2.1 Ensure source routed packets are not accepted
+- name: 3.3.1 Ensure source routed packets are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.default.accept_source_route = 0'
     create: yes
 
-- name: 3.2.1 Ensure source routed packets are not accepted (IPv6 / D8 Benchmark)
+- name: 3.3.1 Ensure source routed packets are not accepted (IPv6 / D8 Benchmark)
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv6.conf.all.accept_source_route = 0'
     create: yes
  
-- name: 3.2.1 Ensure source routed packets are not accepted (IPv6 / B8 Benchmark)
+- name: 3.3.1 Ensure source routed packets are not accepted (IPv6 / B8 Benchmark)
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv6.conf.default.accept_source_route = 0'
     create: yes
     
-- name: 3.2.2 Ensure ICMP redirects are not accepted
+- name: 3.3.2 Ensure ICMP redirects are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.all.accept_redirects = 0'
     create: yes
 
-- name: 3.2.2 Ensure ICMP redirects are not accepted
+- name: 3.3.2 Ensure ICMP redirects are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.default.accept_redirects = 0'
     create: yes
 
-- name: 3.2.3 Ensure secure ICMP redirects are not accepted
+- name: 3.3.3 Ensure secure ICMP redirects are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.all.secure_redirects = 0'
     create: yes
 
-- name: 3.2.3 Ensure secure ICMP redirects are not accepted
+- name: 3.3.3 Ensure secure ICMP redirects are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.default.secure_redirects = 0'
     create: yes
 
-- name: 3.2.4 Ensure suspicious packets are logged
+- name: 3.3.4 Ensure suspicious packets are logged
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.all.log_martians = 1'
@@ -82,100 +82,68 @@
     line: 'net.ipv4.conf.default.log_martians = 1'
     create: yes
 
-- name: 3.2.5 Ensure broadcast ICMP requests are ignored
+- name: 3.3.5 Ensure broadcast ICMP requests are ignored
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.icmp_echo_ignore_broadcasts = 1'
     create: yes
 
-- name: 3.2.6 Ensure bogus ICMP responses are ignored
+- name: 3.3.6 Ensure bogus ICMP responses are ignored
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.icmp_ignore_bogus_error_responses = 1'
     create: yes
 
-- name: 3.2.7 Ensure Reverse Path Filtering is enabled
+- name: 3.3.7 Ensure Reverse Path Filtering is enabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.all.rp_filter = 1'
     create: yes
 
-- name: 3.2.7 Ensure Reverse Path Filtering is enabled
+- name: 3.3.7 Ensure Reverse Path Filtering is enabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.conf.default.rp_filter = 1'
     create: yes
 
-- name: 3.2.8 Ensure TCP SYN Cookies is enabled
+- name: 3.3.8 Ensure TCP SYN Cookies is enabled
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv4.tcp_syncookies = 1'
     create: yes
 
-- name: 3.3.1 Ensure IPv6 router advertisements are not accepted
+- name: 3.3.9 Ensure IPv6 router advertisements are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv6.conf.all.accept_ra = 0'
     create: yes
 
-- name: 3.3.1 Ensure IPv6 router advertisements are not accepted
+- name: 3.3.9 Ensure IPv6 router advertisements are not accepted
   lineinfile:
     path: /etc/sysctl.d/CIS.conf
     line: 'net.ipv6.conf.default.accept_ra = 0'
     create: yes
 
-- name: 3.3.2 Ensure IPv6 redirects are not accepted
-  lineinfile:
-    path: /etc/sysctl.d/CIS.conf
-    line: 'net.ipv6.conf.all.accept_redirects = 0'
-    create: yes
-
-- name: 3.3.2 Ensure IPv6 redirects are not accepted
-  lineinfile:
-    path: /etc/sysctl.d/CIS.conf
-    line: 'net.ipv6.conf.default.accept_redirects = 0'
-    create: yes
-
-- name: 3.4.1 Ensure TCP Wrappers is installed
-  apt:
-    name: tcpd
-    state: present
-
-- name: 3.4.4 Ensure permissions on /etc/hosts.allow are configured
-  file:
-    path: /etc/hosts.allow
-    owner: root
-    group: root
-    mode: 0644
-
-- name: 3.4.5 Ensure permissions on /etc/hosts.deny are 644
-  file:
-    path: /etc/hosts.deny
-    owner: root
-    group: root
-    mode: 0644
-
-- name: 3.5.1 Ensure DCCP is disabled
+- name: 3.4.1 Ensure DCCP is disabled
   lineinfile:
     path: /etc/modprobe.d/CIS.conf
     line: install dccp /bin/true
     create: yes
 
-- name: 3.5.2 Ensure SCTP is disabled
+- name: 3.4.2 Ensure SCTP is disabled
   lineinfile:
     path: /etc/modprobe.d/CIS.conf
     line: install sctp /bin/true
     create: yes
 
-- name: 3.5.3 Ensure RDS is disabled
+- name: 3.4.3 Ensure RDS is disabled
   lineinfile:
     path: /etc/modprobe.d/CIS.conf
     line: install rds /bin/true
     create: yes
 
-- name: 3.5.4 Ensure TIPC is disabled
+- name: 3.4.4 Ensure TIPC is disabled
   lineinfile:
     path: /etc/modprobe.d/CIS.conf
     line: install tipc /bin/true
     create: yes    
-    
