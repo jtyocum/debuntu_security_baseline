@@ -1,7 +1,8 @@
 - name: 5.1.1 Ensure cron daemon is enabled
   systemd:
     name: cron
-    state: enabled
+    state: started
+    enabled: yes
 
 - name: 5.1.2 Ensure permissions on /etc/crontab are configured
   file:
